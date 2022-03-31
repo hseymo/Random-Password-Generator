@@ -11,13 +11,13 @@ var special = [' ', '!', '"', '#', '$', '&', '%', "'", '(', ')', '*', '+', ',', 
 
 function generatePassword(){
   // prompt for character length
-  var characterPrompt = prompt('How many characters would you like? Please enter an integer between 8 and 128.');
+  var characterPrompt = prompt('How many characters should your password include? Please enter an number between 8 and 128.');
   // convert from string to number
   var characterCount = Number(characterPrompt);
   // check for validity criteria
   if (Number.isInteger(characterCount) === false || characterCount < 8 || characterCount > 128) {
     // if invalid, start over
-    alert('Invalid character length. Please try again!');
+    alert('Invalid character length. Please try again using solely integers between 8 and 128!');
     generatePassword();
     // if valid, proceed with asking questions
   } else {
@@ -50,25 +50,57 @@ function generatePassword(){
     if (inquireSpecial) {
       bank.push(...special)
     } else {
-      // if specials are not desired, move on
+      // otherwise move on
     } 
     // edge case = no characters to build bank
     if (!(inquireNumbers) && !(inquireLower) && !(inquireCapitals) && !(inquireSpecial)) {
       alert('Error: We have no characters to build your password. Please start again.')
       generatePassword()
     } 
-    // using characterCount for password length, iterate through for loop adding random element from array
+
     console.log(bank);
 
-    // create random order of bank characters
-    for (let i=0; i<bank.length; i++) {
-      passwordJumble.push(bank[Math.floor(Math.random()*bank.length)])
-    };
-    console.log(passwordJumble);
+    // create random order of bank's characters at max length of possible request and check to ensure desired 
+    function randomOrder() {
+      for (let i=0; i<characterCount; i++) {
+        passwordJumble.push(bank[Math.floor(Math.random()*bank.length)])
+      };
 
-    // slice down random list to correct character count
-    passwordSlice = passwordJumble.slice(0, characterCount);
-    console.log(passwordSlice);
+      console.log(passwordJumble);
+
+      // slice down random list to correct character count
+      passwordSlice = passwordJumble.slice(0, characterCount);
+      console.log(passwordSlice);
+
+      // experimental code starts here
+          // password needs to have at least one character from each desired category; if not should repeat randomOrder function to randomize order and slice into desired pw length;
+      // if numbers are desired, ensure password includes a number
+      if (inquireNumbers) {
+        for (let i=0; i<passwordSlice.length; i++) {
+          for (let j=0; j<numbers.length; j++) {
+            // if there is 1 match -> STOP and break out of loop
+              if (passwordSlice[i] === numbers[j]) {
+                let numberValidity = true;  
+                break;
+              } else {
+                // if there is not a match -> repeat randomOrder function including these validity steps.
+                let numberValidity = false;
+              }
+          }
+        }        
+      }
+
+    // check if inquireLower === true and password contains one character within lower array, 
+
+    // check if inquireUpper === true and password contains one character within upper array,
+
+    // check if inquireSpecial === true and password contains one character within special array, 
+
+    // return password if all criteria are met. Otherwise repeat password generation.
+    };
+
+    // call function
+    randomOrder();
 
     // delete commas from array
     passwordArray = passwordSlice.join('');
@@ -79,22 +111,12 @@ function generatePassword(){
     console.log(password);
     console.log(typeof password);
     console.log(password.length);
-    // password needs to have at least one character from each desired category; if not should repeat creation
-
-    // if inquireNumbers === true and password contains one character within numbers array, 
-
-    // check if inquireLower === true and password contains one character within lower array, 
-
-    // check if inquireUpper === true and password contains one character within upper array,
-
-    // check if inquireSpecial === true and password contains one character within special array, 
-
-    // return password if all criteria are met. Otherwise repeat password generation.
-
   } 
-
-  return "password"
-}
+// provide password to user;
+  alert(`Your password is ${password}`);
+  return "password";
+};
+// need to refresh browser to repeat; work around?
 
 // Assignment Code, DO NOT EDIT ANTHING  BELOW THIS LINE
 var generateBtn = document.querySelector("#generate");
