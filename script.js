@@ -1,6 +1,5 @@
 var bank = [];
 var passwordJumble = [];
-var passwordSlice = [];
 var passwordArray = [];
 var password = '';
 var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -58,7 +57,7 @@ function generatePassword(){
       generatePassword()
     } 
 
-    console.log(bank);
+    console.log(`bank is currently ${bank} and it's data type is ${typeof bank}`);
 
     // create random order of bank's characters at max length of possible request and check to ensure desired 
     function randomOrder() {
@@ -66,20 +65,17 @@ function generatePassword(){
         passwordJumble.push(bank[Math.floor(Math.random()*bank.length)])
       };
 
-      console.log(passwordJumble);
-
-      // slice down random list to correct character count
-      passwordSlice = passwordJumble.slice(0, characterCount);
-      console.log(passwordSlice);
+      console.log(`passwordJumble is currently ${passwordJumble} and it's data type is ${typeof passwordJumble}`);
 
       // experimental code starts here
+      // why is passwordJumble an object instead of array?
           // password needs to have at least one character from each desired category; if not should repeat randomOrder function to randomize order and slice into desired pw length;
       // if numbers are desired, ensure password includes a number
       if (inquireNumbers) {
-        for (let i=0; i<passwordSlice.length; i++) {
+        for (let i=0; i<passwordJumble.length; i++) {
           for (let j=0; j<numbers.length; j++) {
             // if there is 1 match -> STOP and break out of loop
-              if (passwordSlice[i] === numbers[j]) {
+              if (passwordJumble[i] === numbers[j]) {
                 let numberValidity = true;  
                 break;
               } else {
@@ -103,14 +99,12 @@ function generatePassword(){
     randomOrder();
 
     // delete commas from array
-    passwordArray = passwordSlice.join('');
-    console.log(passwordArray);
+    passwordArray = passwordJumble.join('');
+    console.log(`passwordArray is currently ${passwordArray} and it's data type is ${typeof passwordArray}`);
 
     // convert array to string
     password = passwordArray.toString();
-    console.log(password);
-    console.log(typeof password);
-    console.log(password.length);
+    console.log(`password is currently ${password} and it's data type is ${typeof password} and it's length is ${password.length}`);
   } 
 // provide password to user;
   alert(`Your password is ${password}`);
