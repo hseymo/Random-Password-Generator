@@ -31,7 +31,7 @@ Examples of prompts for character types to include:
 ![Screenshot](./assets/photos/numbersprompt.png)
 ![Screenshot](./assets/photos/capitallettersprompt.png)
 
-Examples of Error Alerts:
+Examples of Error Alerts: <br>
 ![Screenshot](./assets/photos/invalidcharlength.png)
 ![Screenshot](./assets/photos/emptybank.png)
 
